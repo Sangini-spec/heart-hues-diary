@@ -4,9 +4,80 @@
 
 /* Mental Health Journal Design System - Soothing Dark Theme */
 
-@layer base {
   :root {
-    /* Soothing dark background with soft depth */
+    /* Light Theme - Gentle pastels */
+    --background: 210 40% 98%;
+    --foreground: 225 15% 15%;
+
+    /* Card surfaces with gentle elevation */
+    --card: 210 50% 96%;
+    --card-foreground: 225 15% 20%;
+
+    /* Popover and overlay surfaces */
+    --popover: 210 60% 98%;
+    --popover-foreground: 225 15% 15%;
+
+    /* Soft lavender primary - therapeutic */
+    --primary: 260 50% 65%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Gentle blue-grey secondary */
+    --secondary: 220 30% 92%;
+    --secondary-foreground: 225 15% 25%;
+
+    /* Muted surfaces for subtle elements */
+    --muted: 220 25% 90%;
+    --muted-foreground: 225 10% 45%;
+
+    /* Soft mint accent for highlights */
+    --accent: 165 45% 75%;
+    --accent-foreground: 225 15% 15%;
+
+    /* Soft coral for gentle warnings */
+    --destructive: 15 70% 65%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Borders and inputs with subtle definition */
+    --border: 220 25% 85%;
+    --input: 220 30% 94%;
+    --ring: 260 50% 65%;
+
+    /* Additional therapeutic colors */
+    --calm-blue: 220 50% 75%;
+    --warm-peach: 25 70% 80%;
+    --gentle-green: 140 40% 75%;
+    --soft-rose: 340 50% 80%;
+    
+    /* Gradients for emotional depth */
+    --gradient-calm: linear-gradient(135deg, hsl(260 50% 65% / 0.1), hsl(220 50% 75% / 0.1));
+    --gradient-warm: linear-gradient(135deg, hsl(25 70% 80% / 0.1), hsl(340 50% 80% / 0.1));
+    --gradient-growth: linear-gradient(135deg, hsl(140 40% 75% / 0.1), hsl(165 45% 75% / 0.1));
+    
+    /* Breathing animation glow */
+    --breathing-glow: 260 50% 65% / 0.3;
+    
+    /* Shadows for depth */
+    --shadow-gentle: 0 4px 20px -4px hsl(225 15% 15% / 0.1);
+    --shadow-floating: 0 8px 30px -8px hsl(225 15% 15% / 0.15);
+    
+    /* Transitions */
+    --transition-gentle: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-breathing: all 2s cubic-bezier(0.37, 0, 0.63, 1);
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Theme - Keep current soothing dark colors */
     --background: 234 18% 8%;
     --foreground: 230 15% 85%;
 
@@ -68,19 +139,12 @@
     --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 

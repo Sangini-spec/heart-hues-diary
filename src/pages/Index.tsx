@@ -8,8 +8,9 @@ import { AffirmationCard } from '@/components/AffirmationCard';
 import { BreathingExercise } from '@/components/BreathingExercise';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, Sparkles, Sun, Moon } from 'lucide-react';
+import { Heart, Sparkles, Sun, Moon, PenTool } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
@@ -199,14 +200,17 @@ const Index = () => {
       {/* Header with Navigation */}
       <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-sm border-b border-border/50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Heart className="h-6 w-6 text-primary" />
-            <span className="font-semibold text-foreground hidden sm:inline">
-              Mindful Moments
+          <div className="flex items-center gap-3">
+            <PenTool className="h-6 w-6 text-primary" />
+            <span className="font-semibold text-foreground hidden sm:inline" style={{ fontFamily: 'cursive' }}>
+              Heart Hues diary
             </span>
           </div>
           
-          <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Navigation activeTab={activeTab} onTabChange={setActiveTab} />
+          </div>
         </div>
       </header>
 
