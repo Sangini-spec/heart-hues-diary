@@ -8,9 +8,10 @@ import { AffirmationCard } from '@/components/AffirmationCard';
 import { BreathingExercise } from '@/components/BreathingExercise';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, Sparkles, Sun, Moon, PenTool } from 'lucide-react';
+import { Heart, Sparkles, Sun, Moon, PenTool, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { BookRecommendations } from '@/components/BookRecommendations';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
@@ -115,13 +116,23 @@ const Index = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
         <Card className="journal-card cursor-pointer group" onClick={() => setActiveTab('journal')}>
           <CardContent className="p-6 text-center space-y-3">
             <Sparkles className="h-8 w-8 text-primary mx-auto group-hover:animate-gentle-pulse" />
             <h3 className="font-semibold text-foreground">Start Writing</h3>
             <p className="text-sm text-muted-foreground">
               Capture your thoughts and feelings
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="journal-card cursor-pointer group" onClick={() => setActiveTab('books')}>
+          <CardContent className="p-6 text-center space-y-3">
+            <BookOpen className="h-8 w-8 text-gentle-green mx-auto group-hover:animate-gentle-pulse" />
+            <h3 className="font-semibold text-foreground">Book Recommendations</h3>
+            <p className="text-sm text-muted-foreground">
+              Discover books based on your mood
             </p>
           </CardContent>
         </Card>
@@ -178,6 +189,12 @@ const Index = () => {
         return (
           <div className="max-w-4xl mx-auto">
             <MoodAnalytics entries={entries} />
+          </div>
+        );
+      case 'books':
+        return (
+          <div className="max-w-4xl mx-auto">
+            <BookRecommendations entries={entries} todaysMood={todaysMood} />
           </div>
         );
       case 'breathe':

@@ -5,12 +5,13 @@ import {
   Calendar, 
   BarChart3, 
   Heart,
+  BookOpen,
   Menu,
   X
 } from 'lucide-react';
 import { useState } from 'react';
 
-export type TabType = 'home' | 'journal' | 'timeline' | 'analytics' | 'breathe';
+export type TabType = 'home' | 'journal' | 'timeline' | 'analytics' | 'breathe' | 'books';
 
 interface NavigationProps {
   activeTab: TabType;
@@ -22,6 +23,7 @@ const navItems = [
   { id: 'journal' as TabType, label: 'Journal', icon: PenTool },
   { id: 'timeline' as TabType, label: 'Timeline', icon: Calendar },
   { id: 'analytics' as TabType, label: 'Insights', icon: BarChart3 },
+  { id: 'books' as TabType, label: 'Books', icon: BookOpen },
   { id: 'breathe' as TabType, label: 'Breathe', icon: Heart },
 ];
 
