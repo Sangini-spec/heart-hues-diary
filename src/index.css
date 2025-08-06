@@ -4,6 +4,7 @@
 
 /* Mental Health Journal Design System - Soothing Dark Theme */
 
+@layer base {
   :root {
     /* Light Theme - Gentle pastels */
     --background: 210 40% 98%;
@@ -147,7 +148,6 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-
 }
 
 @layer base {
