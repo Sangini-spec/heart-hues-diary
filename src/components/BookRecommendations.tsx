@@ -7,6 +7,20 @@ import { BookOpen, Star, TrendingUp, Heart, Lightbulb, Coffee } from 'lucide-rea
 import { MoodType } from '@/components/MoodTracker';
 import { JournalEntryData } from '@/components/JournalTimeline';
 
+// Book cover imports
+import powerOfNowCover from '@/assets/book-covers/power-of-now.jpg';
+import atomicHabitsCover from '@/assets/book-covers/atomic-habits.jpg';
+import bigMagicCover from '@/assets/book-covers/big-magic.jpg';
+import giftsOfImperfectionCover from '@/assets/book-covers/gifts-of-imperfection.jpg';
+import maybeYouShouldTalkCover from '@/assets/book-covers/maybe-you-should-talk.jpg';
+import subtleArtCover from '@/assets/book-covers/subtle-art.jpg';
+import whenThingsFallApartCover from '@/assets/book-covers/when-things-fall-apart.jpg';
+import optionBCover from '@/assets/book-covers/option-b.jpg';
+import bodyKeepsScoreCover from '@/assets/book-covers/body-keeps-score.jpg';
+import risingStrongCover from '@/assets/book-covers/rising-strong.jpg';
+
+type EmotionType = 'happiness' | 'sad' | 'love' | 'loss' | 'inconsistency' | 'fear-not-enough' | 'lack-self-belief';
+
 interface Book {
   id: string;
   title: string;
@@ -14,9 +28,11 @@ interface Book {
   description: string;
   category: 'motivational' | 'alignment' | 'healing' | 'growth';
   mood: MoodType[];
+  emotions: EmotionType[];
   rating: number;
   tags: string[];
   icon: typeof BookOpen;
+  coverImage: string;
 }
 
 const bookDatabase: Book[] = [
@@ -28,9 +44,11 @@ const bookDatabase: Book[] = [
     description: 'A guide to spiritual enlightenment that teaches the importance of living in the present moment.',
     category: 'alignment',
     mood: ['amazing', 'good'],
+    emotions: ['happiness', 'love'],
     rating: 4.8,
     tags: ['mindfulness', 'spirituality', 'presence'],
-    icon: Star
+    icon: Star,
+    coverImage: powerOfNowCover
   },
   {
     id: '2',
@@ -39,9 +57,11 @@ const bookDatabase: Book[] = [
     description: 'A comprehensive guide to building good habits and breaking bad ones through small changes.',
     category: 'motivational',
     mood: ['amazing', 'good', 'okay'],
+    emotions: ['happiness', 'lack-self-belief', 'inconsistency'],
     rating: 4.9,
     tags: ['productivity', 'self-improvement', 'habits'],
-    icon: TrendingUp
+    icon: TrendingUp,
+    coverImage: atomicHabitsCover
   },
   
   // Good mood books
@@ -52,9 +72,11 @@ const bookDatabase: Book[] = [
     description: 'Creative living beyond fear - a beautiful exploration of creativity and inspiration.',
     category: 'motivational',
     mood: ['good', 'amazing'],
+    emotions: ['happiness', 'fear-not-enough', 'lack-self-belief'],
     rating: 4.6,
     tags: ['creativity', 'inspiration', 'courage'],
-    icon: Lightbulb
+    icon: Lightbulb,
+    coverImage: bigMagicCover
   },
   {
     id: '4',
@@ -63,9 +85,11 @@ const bookDatabase: Book[] = [
     description: 'Let go of who you think you\'re supposed to be and embrace who you are.',
     category: 'alignment',
     mood: ['good', 'okay'],
+    emotions: ['love', 'fear-not-enough', 'lack-self-belief'],
     rating: 4.7,
     tags: ['self-acceptance', 'vulnerability', 'authenticity'],
-    icon: Heart
+    icon: Heart,
+    coverImage: giftsOfImperfectionCover
   },
 
   // Okay mood books
@@ -76,9 +100,11 @@ const bookDatabase: Book[] = [
     description: 'A therapist, her therapist, and our lives revealed through intimate stories of healing.',
     category: 'alignment',
     mood: ['okay', 'down'],
+    emotions: ['sad', 'loss', 'inconsistency'],
     rating: 4.7,
     tags: ['therapy', 'mental health', 'healing'],
-    icon: Heart
+    icon: Heart,
+    coverImage: maybeYouShouldTalkCover
   },
   {
     id: '6',
@@ -87,9 +113,11 @@ const bookDatabase: Book[] = [
     description: 'A counterintuitive approach to living a good life by focusing on what truly matters.',
     category: 'motivational',
     mood: ['okay', 'down'],
+    emotions: ['inconsistency', 'fear-not-enough', 'lack-self-belief'],
     rating: 4.5,
     tags: ['philosophy', 'priorities', 'mindset'],
-    icon: Coffee
+    icon: Coffee,
+    coverImage: subtleArtCover
   },
 
   // Down mood books
@@ -100,9 +128,11 @@ const bookDatabase: Book[] = [
     description: 'Heart advice for difficult times from a beloved Buddhist teacher.',
     category: 'healing',
     mood: ['down', 'tough'],
+    emotions: ['sad', 'loss', 'fear-not-enough'],
     rating: 4.6,
     tags: ['resilience', 'Buddhism', 'comfort'],
-    icon: Heart
+    icon: Heart,
+    coverImage: whenThingsFallApartCover
   },
   {
     id: '8',
@@ -111,9 +141,11 @@ const bookDatabase: Book[] = [
     description: 'Facing adversity, building resilience, and finding joy after hardship.',
     category: 'healing',
     mood: ['down', 'tough'],
+    emotions: ['sad', 'loss', 'lack-self-belief'],
     rating: 4.5,
     tags: ['resilience', 'grief', 'recovery'],
-    icon: TrendingUp
+    icon: TrendingUp,
+    coverImage: optionBCover
   },
 
   // Tough mood books
@@ -124,9 +156,11 @@ const bookDatabase: Book[] = [
     description: 'Brain, mind, and body in the healing of trauma.',
     category: 'healing',
     mood: ['tough', 'down'],
+    emotions: ['sad', 'loss', 'fear-not-enough'],
     rating: 4.8,
     tags: ['trauma', 'healing', 'recovery'],
-    icon: Heart
+    icon: Heart,
+    coverImage: bodyKeepsScoreCover
   },
   {
     id: '10',
@@ -135,9 +169,11 @@ const bookDatabase: Book[] = [
     description: 'How the ability to reset transforms the way we live, love, parent, and lead.',
     category: 'healing',
     mood: ['tough', 'down', 'okay'],
+    emotions: ['sad', 'loss', 'lack-self-belief'],
     rating: 4.6,
     tags: ['resilience', 'courage', 'recovery'],
-    icon: TrendingUp
+    icon: TrendingUp,
+    coverImage: risingStrongCover
   }
 ];
 
@@ -284,48 +320,75 @@ export function BookRecommendations({ entries, todaysMood }: BookRecommendations
               const Icon = book.icon;
               return (
                 <Card key={book.id} className="journal-card hover:shadow-lg transition-shadow">
-                  <CardContent className="p-4 space-y-3">
-                    <div className="flex items-start gap-3">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <Icon className="h-5 w-5 text-primary" />
+                  <CardContent className="p-0">
+                    <div className="flex gap-4 p-4">
+                      {/* Book Cover */}
+                      <div className="w-24 h-32 flex-shrink-0">
+                        <img 
+                          src={book.coverImage} 
+                          alt={`${book.title} cover`}
+                          className="w-full h-full object-cover rounded-lg shadow-md"
+                        />
                       </div>
-                      <div className="flex-1 space-y-1">
-                        <h3 className="font-semibold text-foreground leading-tight">
-                          {book.title}
-                        </h3>
-                        <p className="text-sm text-muted-foreground">
-                          by {book.author}
-                        </p>
-                        <div className="flex items-center gap-1">
-                          <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                          <span className="text-sm font-medium">{book.rating}</span>
+                      
+                      {/* Book Info */}
+                      <div className="flex-1 space-y-3">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 rounded-lg bg-primary/10">
+                            <Icon className="h-5 w-5 text-primary" />
+                          </div>
+                          <div className="flex-1 space-y-1">
+                            <h3 className="font-semibold text-foreground leading-tight">
+                              {book.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              by {book.author}
+                            </p>
+                            <div className="flex items-center gap-1">
+                              <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                              <span className="text-sm font-medium">{book.rating}</span>
+                            </div>
+                          </div>
                         </div>
+                        
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {book.description}
+                        </p>
+                        
+                        {/* Emotions Tags */}
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap gap-1">
+                            <span className="text-xs font-medium text-muted-foreground">Emotions:</span>
+                            {book.emotions.map((emotion) => (
+                              <Badge key={emotion} variant="outline" className="text-xs capitalize">
+                                {emotion.replace('-', ' ')}
+                              </Badge>
+                            ))}
+                          </div>
+                          
+                          <div className="flex flex-wrap gap-1">
+                            <span className="text-xs font-medium text-muted-foreground">Tags:</span>
+                            {book.tags.map((tag) => (
+                              <Badge key={tag} variant="secondary" className="text-xs">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        
+                        <Badge 
+                          variant="outline" 
+                          className={`text-xs capitalize w-fit ${
+                            book.category === 'motivational' ? 'border-gentle-green text-gentle-green' :
+                            book.category === 'alignment' ? 'border-calm-blue text-calm-blue' :
+                            book.category === 'healing' ? 'border-warm-peach text-warm-peach' :
+                            'border-primary text-primary'
+                          }`}
+                        >
+                          {book.category}
+                        </Badge>
                       </div>
                     </div>
-                    
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {book.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-1">
-                      {book.tags.map((tag) => (
-                        <Badge key={tag} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                    
-                    <Badge 
-                      variant="outline" 
-                      className={`text-xs capitalize ${
-                        book.category === 'motivational' ? 'border-gentle-green text-gentle-green' :
-                        book.category === 'alignment' ? 'border-calm-blue text-calm-blue' :
-                        book.category === 'healing' ? 'border-warm-peach text-warm-peach' :
-                        'border-primary text-primary'
-                      }`}
-                    >
-                      {book.category}
-                    </Badge>
                   </CardContent>
                 </Card>
               );
