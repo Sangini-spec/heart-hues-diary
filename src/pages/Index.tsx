@@ -78,7 +78,7 @@ const Index = () => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return { text: "Good morning", icon: Sun };
+    if (hour < 12) return { text: "Good Morning", icon: Sun };
     if (hour < 17) return { text: "Good afternoon", icon: Sun };
     return { text: "Good evening", icon: Moon };
   };
