@@ -18,6 +18,16 @@ import whenThingsFallApartCover from '@/assets/book-covers/when-things-fall-apar
 import optionBCover from '@/assets/book-covers/option-b.jpg';
 import bodyKeepsScoreCover from '@/assets/book-covers/body-keeps-score.jpg';
 import risingStrongCover from '@/assets/book-covers/rising-strong.jpg';
+import happinessProjectCover from '@/assets/book-covers/happiness-project.jpg';
+import untamedCover from '@/assets/book-covers/untamed.jpg';
+import griefObservedCover from '@/assets/book-covers/grief-observed.jpg';
+import selfCompassionCover from '@/assets/book-covers/self-compassion.jpg';
+import fourAgreementsCover from '@/assets/book-covers/four-agreements.jpg';
+import mindsetCover from '@/assets/book-covers/mindset.jpg';
+import daringGreatlyCover from '@/assets/book-covers/daring-greatly.jpg';
+import itsOkNotOkCover from '@/assets/book-covers/its-ok-not-ok.jpg';
+import alchemistCover from '@/assets/book-covers/alchemist.jpg';
+import feelingGoodCover from '@/assets/book-covers/feeling-good.jpg';
 
 type EmotionType = 'happiness' | 'sad' | 'love' | 'loss' | 'inconsistency' | 'fear-not-enough' | 'lack-self-belief';
 
@@ -174,6 +184,156 @@ const bookDatabase: Book[] = [
     tags: ['resilience', 'courage', 'recovery'],
     icon: TrendingUp,
     coverImage: risingStrongCover
+  },
+  
+  // Additional books for happiness
+  {
+    id: '11',
+    title: 'The Happiness Project',
+    author: 'Gretchen Rubin',
+    description: 'A year-long journey to discover what leads to true contentment and joy.',
+    category: 'motivational',
+    mood: ['amazing', 'good'],
+    emotions: ['happiness', 'love'],
+    rating: 4.4,
+    tags: ['happiness', 'self-improvement', 'lifestyle'],
+    icon: Heart,
+    coverImage: happinessProjectCover
+  },
+  
+  // Additional books for love and self-belief
+  {
+    id: '12',
+    title: 'Untamed',
+    author: 'Glennon Doyle',
+    description: 'A memoir about unlearning what society has told us to be and embracing who we truly are.',
+    category: 'alignment',
+    mood: ['amazing', 'good', 'okay'],
+    emotions: ['love', 'lack-self-belief', 'fear-not-enough'],
+    rating: 4.5,
+    tags: ['authenticity', 'self-discovery', 'courage'],
+    icon: Star,
+    coverImage: untamedCover
+  },
+  
+  // Additional books for loss and grief
+  {
+    id: '13',
+    title: 'A Grief Observed',
+    author: 'C.S. Lewis',
+    description: 'A raw and honest examination of loss, grief, and the search for meaning after tragedy.',
+    category: 'healing',
+    mood: ['down', 'tough'],
+    emotions: ['sad', 'loss'],
+    rating: 4.3,
+    tags: ['grief', 'loss', 'spirituality'],
+    icon: Heart,
+    coverImage: griefObservedCover
+  },
+  
+  // Additional books for self-compassion and love
+  {
+    id: '14',
+    title: 'Self-Compassion',
+    author: 'Kristin Neff',
+    description: 'Learn to treat yourself with the same kindness you would show a good friend.',
+    category: 'healing',
+    mood: ['okay', 'down', 'good'],
+    emotions: ['love', 'lack-self-belief', 'sad'],
+    rating: 4.6,
+    tags: ['self-compassion', 'mindfulness', 'self-care'],
+    icon: Heart,
+    coverImage: selfCompassionCover
+  },
+  
+  // Additional books for fear and inconsistency
+  {
+    id: '15',
+    title: 'The Four Agreements',
+    author: 'Don Miguel Ruiz',
+    description: 'Ancient Toltec wisdom offering a code of conduct that can transform your life.',
+    category: 'alignment',
+    mood: ['okay', 'good', 'amazing'],
+    emotions: ['fear-not-enough', 'inconsistency', 'lack-self-belief'],
+    rating: 4.7,
+    tags: ['wisdom', 'spirituality', 'personal freedom'],
+    icon: Star,
+    coverImage: fourAgreementsCover
+  },
+  
+  // Additional books for lack of self-belief
+  {
+    id: '16',
+    title: 'Mindset',
+    author: 'Carol Dweck',
+    description: 'How a simple belief about yourself guides success and failure.',
+    category: 'motivational',
+    mood: ['okay', 'good', 'amazing'],
+    emotions: ['lack-self-belief', 'fear-not-enough', 'inconsistency'],
+    rating: 4.8,
+    tags: ['growth mindset', 'psychology', 'success'],
+    icon: TrendingUp,
+    coverImage: mindsetCover
+  },
+  
+  // Additional books for courage and fear
+  {
+    id: '17',
+    title: 'Daring Greatly',
+    author: 'Brené Brown',
+    description: 'How the courage to be vulnerable transforms our lives, relationships, and work.',
+    category: 'alignment',
+    mood: ['good', 'okay'],
+    emotions: ['fear-not-enough', 'lack-self-belief', 'love'],
+    rating: 4.7,
+    tags: ['vulnerability', 'courage', 'shame'],
+    icon: Heart,
+    coverImage: daringGreatlyCover
+  },
+  
+  // Additional books for grief and sadness
+  {
+    id: '18',
+    title: 'It\'s OK That You\'re Not OK',
+    author: 'Megan Devine',
+    description: 'Meeting grief and loss in a culture that doesn\'t understand.',
+    category: 'healing',
+    mood: ['down', 'tough'],
+    emotions: ['sad', 'loss'],
+    rating: 4.5,
+    tags: ['grief', 'loss', 'support'],
+    icon: Heart,
+    coverImage: itsOkNotOkCover
+  },
+  
+  // Additional books for happiness and purpose
+  {
+    id: '19',
+    title: 'The Alchemist',
+    author: 'Paulo Coelho',
+    description: 'A magical story about following your dreams and listening to your heart.',
+    category: 'motivational',
+    mood: ['amazing', 'good'],
+    emotions: ['happiness', 'love', 'fear-not-enough'],
+    rating: 4.6,
+    tags: ['dreams', 'purpose', 'adventure'],
+    icon: Star,
+    coverImage: alchemistCover
+  },
+  
+  // Additional books for sadness and mental health
+  {
+    id: '20',
+    title: 'Feeling Good',
+    author: 'David Burns',
+    description: 'The new mood therapy that uses cognitive behavioral techniques to overcome depression.',
+    category: 'healing',
+    mood: ['down', 'tough', 'okay'],
+    emotions: ['sad', 'lack-self-belief', 'inconsistency'],
+    rating: 4.5,
+    tags: ['depression', 'cognitive therapy', 'mental health'],
+    icon: TrendingUp,
+    coverImage: feelingGoodCover
   }
 ];
 
