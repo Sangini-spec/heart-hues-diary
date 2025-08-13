@@ -8,9 +8,11 @@ import {
   BookOpen,
   Bot,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from "@/hooks/useAuth";
 
 export type TabType = 'home' | 'journal' | 'timeline' | 'analytics' | 'breathe' | 'books' | 'chatbot';
 
@@ -31,6 +33,7 @@ const navItems = [
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { signOut } = useAuth();
 
   const handleTabClick = (tab: TabType) => {
     onTabChange(tab);
@@ -56,19 +59,38 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
             </Button>
           );
         })}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={signOut}
+          className="flex items-center gap-2 rounded-full px-4 py-2 text-muted-foreground hover:text-foreground"
+        >
+          <LogOut className="h-4 w-4" />
+          <span className="hidden sm:inline">Sign Out</span>
+        </Button>
       </nav>
 
       {/* Mobile Navigation */}
       <div className="md:hidden">
         {/* Mobile Menu Button */}
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="fixed top-4 right-4 z-50 rounded-full w-10 h-10 p-0"
-        >
-          {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </Button>
+        <div className="fixed top-4 right-4 z-50 flex gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={signOut}
+            className="rounded-full w-10 h-10 p-0 text-muted-foreground hover:text-foreground"
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="rounded-full w-10 h-10 p-0"
+          >
+            {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </Button>
+        </div>
 
         {/* Mobile Menu Overlay */}
         {isMobileMenuOpen && (

@@ -4,6 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Sparkles, Heart, Star } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
 
 const journalPrompts = [
   "What made you smile today?",
@@ -19,7 +22,7 @@ const journalPrompts = [
 ];
 
 interface JournalEntryProps {
-  onSave: (entry: { content: string; prompt: string; tags: string[] }) => void;
+  onSave?: (entry: { content: string; prompt: string; tags: string[] }) => void;
   initialContent?: string;
   initialPrompt?: string;
   initialTags?: string[];
@@ -31,15 +34,49 @@ export function JournalEntry({ onSave, initialContent = '', initialPrompt = '', 
   const [showPrompts, setShowPrompts] = useState(!initialPrompt);
   const [tags, setTags] = useState<string[]>(initialTags);
   const [newTag, setNewTag] = useState('');
+  const [saving, setSaving] = useState(false);
+  const { user } = useAuth();
+  const { toast } = useToast();
 
   const suggestedTags = ['grateful', 'peaceful', 'anxious', 'hopeful', 'reflective', 'energized', 'calm'];
 
-  const handleSave = () => {
-    if (content.trim()) {
-      onSave({ content: content.trim(), prompt: selectedPrompt, tags });
+  const handleSave = async () => {
+    if (!content.trim() || !user) return;
+    
+    setSaving(true);
+    try {
+      const entryData = {
+        user_id: user.id,
+        content: content.trim(),
+        // Store prompt and tags as part of content for now, or add separate columns if needed
+      };
+
+      const { error } = await supabase
+        .from('journal_entries')
+        .insert(entryData);
+
+      if (error) throw error;
+
+      toast({
+        title: "Entry saved",
+        description: "Your journal entry has been saved successfully."
+      });
+
+      // Call onSave if provided for any additional handling
+      onSave?.({ content: content.trim(), prompt: selectedPrompt, tags });
+      
+      // Reset form
       setContent('');
       setTags([]);
       setSelectedPrompt(journalPrompts[Math.floor(Math.random() * journalPrompts.length)]);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to save journal entry. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -168,12 +205,12 @@ export function JournalEntry({ onSave, initialContent = '', initialPrompt = '', 
         <div className="flex justify-center pt-4">
           <Button
             onClick={handleSave}
-            disabled={!content.trim()}
+            disabled={!content.trim() || saving}
             size="lg"
             className="flex items-center gap-2"
           >
             <Heart className="h-4 w-4" />
-            Save Entry
+            {saving ? "Saving..." : "Save Entry"}
           </Button>
         </div>
       </CardContent>
