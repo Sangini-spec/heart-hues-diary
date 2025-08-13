@@ -6,6 +6,7 @@ import { JournalTimeline, JournalEntryData } from '@/components/JournalTimeline'
 import { MoodAnalytics } from '@/components/MoodAnalytics';
 import { AffirmationCard } from '@/components/AffirmationCard';
 import { BreathingExercise } from '@/components/BreathingExercise';
+import { AIChatbot } from '@/components/AIChatbot';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Sparkles, Sun, Moon, PenTool, BookOpen } from 'lucide-react';
@@ -195,6 +196,12 @@ const Index = () => {
         return (
           <div className="max-w-4xl mx-auto">
             <BookRecommendations entries={entries} todaysMood={todaysMood} />
+          </div>
+        );
+      case 'chatbot':
+        return (
+          <div className="max-w-4xl mx-auto">
+            <AIChatbot />
           </div>
         );
       case 'breathe':
