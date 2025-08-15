@@ -13,41 +13,79 @@ import { Heart, Sparkles, Sun, Moon, PenTool, BookOpen } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { BookRecommendations } from '@/components/BookRecommendations';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<TabType>('home');
   const [entries, setEntries] = useState<JournalEntryData[]>([]);
   const [todaysMood, setTodaysMood] = useState<MoodType | undefined>();
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const { user } = useAuth();
 
-  // Load data from localStorage on mount
+  // Load data from Supabase on mount
   useEffect(() => {
-    const savedEntries = localStorage.getItem('journal-entries');
-    if (savedEntries) {
-      const parsed = JSON.parse(savedEntries);
-      const entriesWithDates = parsed.map((entry: any) => ({
-        ...entry,
-        date: new Date(entry.date)
-      }));
-      setEntries(entriesWithDates);
+    if (!user) {
+      setLoading(false);
+      return;
     }
 
-    const savedMood = localStorage.getItem('todays-mood');
-    if (savedMood) {
-      setTodaysMood(savedMood as MoodType);
-    }
-  }, []);
+    const loadUserData = async () => {
+      try {
+        // Load journal entries
+        const { data: journalData, error: journalError } = await supabase
+          .from('journal_entries')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
 
-  // Save to localStorage when data changes
-  useEffect(() => {
-    localStorage.setItem('journal-entries', JSON.stringify(entries));
-  }, [entries]);
+        if (journalError) throw journalError;
 
-  useEffect(() => {
-    if (todaysMood) {
-      localStorage.setItem('todays-mood', todaysMood);
-    }
-  }, [todaysMood]);
+        // Transform to match expected format
+        const transformedEntries: JournalEntryData[] = journalData?.map(entry => ({
+          id: entry.id,
+          date: new Date(entry.created_at),
+          mood: entry.mood ? (['tough', 'down', 'okay', 'good', 'amazing'][entry.mood - 1] as MoodType) : 'okay',
+          content: entry.content,
+          prompt: '', // Add separate storage for prompt if needed
+          tags: [] // Add separate storage for tags if needed
+        })) || [];
+
+        setEntries(transformedEntries);
+
+        // Load today's mood
+        const today = new Date().toISOString().split('T')[0];
+        const { data: moodData, error: moodError } = await supabase
+          .from('mood_logs')
+          .select('*')
+          .eq('user_id', user.id)
+          .gte('created_at', `${today}T00:00:00.000Z`)
+          .lt('created_at', `${today}T23:59:59.999Z`)
+          .order('created_at', { ascending: false })
+          .limit(1);
+
+        if (moodError) throw moodError;
+
+        if (moodData && moodData.length > 0) {
+          const moodValue = moodData[0].mood;
+          const moodTypes: MoodType[] = ['tough', 'down', 'okay', 'good', 'amazing'];
+          setTodaysMood(moodTypes[moodValue - 1] || 'okay');
+        }
+      } catch (error) {
+        console.error('Error loading user data:', error);
+        toast({
+          title: "Error loading data",
+          description: "There was an issue loading your journal entries.",
+          variant: "destructive"
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserData();
+  }, [user, toast]);
 
   const handleMoodSelect = (mood: MoodType) => {
     setTodaysMood(mood);
@@ -58,21 +96,35 @@ const Index = () => {
   };
 
   const handleJournalSave = (entryData: { content: string; prompt: string; tags: string[] }) => {
-    const newEntry: JournalEntryData = {
-      id: Date.now().toString(),
-      date: new Date(),
-      mood: todaysMood || 'okay',
-      content: entryData.content,
-      prompt: entryData.prompt,
-      tags: entryData.tags
-    };
+    // Refresh entries list after successful save
+    if (user) {
+      const loadEntries = async () => {
+        try {
+          const { data, error } = await supabase
+            .from('journal_entries')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false });
 
-    setEntries(prev => [newEntry, ...prev]);
-    
-    toast({
-      title: "Entry saved",
-      description: "Your thoughts have been safely recorded. 🌟",
-    });
+          if (error) throw error;
+
+          const transformedEntries: JournalEntryData[] = data?.map(entry => ({
+            id: entry.id,
+            date: new Date(entry.created_at),
+            mood: entry.mood ? (['tough', 'down', 'okay', 'good', 'amazing'][entry.mood - 1] as MoodType) : 'okay',
+            content: entry.content,
+            prompt: entryData.prompt,
+            tags: entryData.tags
+          })) || [];
+
+          setEntries(transformedEntries);
+        } catch (error) {
+          console.error('Error refreshing entries:', error);
+        }
+      };
+
+      loadEntries();
+    }
     
     setActiveTab('timeline');
   };
@@ -150,7 +202,7 @@ const Index = () => {
       </div>
 
       {/* Recent Entries Preview */}
-      {entries.length > 0 && (
+      {!loading && entries.length > 0 && (
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold text-foreground">Recent Reflections</h2>
@@ -162,6 +214,16 @@ const Index = () => {
             entries={entries.slice(0, 3)} 
             onEntryClick={() => setActiveTab('timeline')}
           />
+        </div>
+      )}
+
+      {/* Loading state */}
+      {loading && (
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="animate-pulse space-y-4">
+            <div className="h-4 bg-muted rounded w-1/4 mx-auto"></div>
+            <div className="h-20 bg-muted rounded"></div>
+          </div>
         </div>
       )}
     </div>

@@ -78,14 +78,47 @@ export function MoodTracker({ selectedMood, onMoodSelect, showDescription = true
   const saveMoodLog = async (mood: MoodType) => {
     if (!user) return;
     
+    // Input validation for notes
+    const sanitizedNotes = notes.trim();
+    if (sanitizedNotes.length > 500) {
+      toast({
+        title: "Note too long",
+        description: "Please keep your mood note under 500 characters.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setSaving(true);
     try {
+      // Check if user already logged mood today to prevent spam
+      const today = new Date().toISOString().split('T')[0];
+      const { data: existingMoods, error: checkError } = await supabase
+        .from('mood_logs')
+        .select('id')
+        .eq('user_id', user.id)
+        .gte('created_at', `${today}T00:00:00.000Z`)
+        .lt('created_at', `${today}T23:59:59.999Z`);
+
+      if (checkError) throw checkError;
+
+      // Allow up to 3 mood logs per day to prevent abuse
+      if (existingMoods && existingMoods.length >= 3) {
+        toast({
+          title: "Daily limit reached",
+          description: "You can log up to 3 moods per day.",
+          variant: "destructive"
+        });
+        setSaving(false);
+        return;
+      }
+
       const { error } = await supabase
         .from('mood_logs')
         .insert({
           user_id: user.id,
           mood: moodToNumber(mood),
-          notes: notes.trim() || null
+          notes: sanitizedNotes || null
         });
 
       if (error) throw error;
@@ -98,6 +131,7 @@ export function MoodTracker({ selectedMood, onMoodSelect, showDescription = true
       setNotes('');
       onMoodSelect(mood);
     } catch (error) {
+      console.error('Error saving mood log:', error);
       toast({
         title: "Error",
         description: "Failed to save mood log. Please try again.",

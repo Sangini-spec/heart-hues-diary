@@ -43,12 +43,33 @@ export function JournalEntry({ onSave, initialContent = '', initialPrompt = '', 
   const handleSave = async () => {
     if (!content.trim() || !user) return;
     
+    // Input validation and sanitization
+    const sanitizedContent = content.trim();
+    if (sanitizedContent.length < 10) {
+      toast({
+        title: "Entry too short",
+        description: "Please write at least 10 characters.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (sanitizedContent.length > 2000) {
+      toast({
+        title: "Entry too long",
+        description: "Please keep your entry under 2000 characters.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     setSaving(true);
     try {
       const entryData = {
         user_id: user.id,
-        content: content.trim(),
-        // Store prompt and tags as part of content for now, or add separate columns if needed
+        content: sanitizedContent,
+        // Store mood if available
+        mood: undefined // Will be handled separately in mood tracker
       };
 
       const { error } = await supabase
@@ -63,13 +84,14 @@ export function JournalEntry({ onSave, initialContent = '', initialPrompt = '', 
       });
 
       // Call onSave if provided for any additional handling
-      onSave?.({ content: content.trim(), prompt: selectedPrompt, tags });
+      onSave?.({ content: sanitizedContent, prompt: selectedPrompt, tags });
       
       // Reset form
       setContent('');
       setTags([]);
       setSelectedPrompt(journalPrompts[Math.floor(Math.random() * journalPrompts.length)]);
     } catch (error) {
+      console.error('Error saving journal entry:', error);
       toast({
         title: "Error",
         description: "Failed to save journal entry. Please try again.",
