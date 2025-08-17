@@ -1,54 +1,38 @@
-# Welcome to your Lovable project
+# Heart Hues Diary 💙  
 
-## Project info
+**Heart Hues Diary** is a mental health journal web application designed to promote emotional well-being and self-care. The platform combines journaling, a guided breathing exercise, and AI-powered recommendations to help users relax, reflect, and recharge. The web application also includes a book recommendation system and daily affirmations to keep users motivated and comforted. Users can start journaling either with guided prompts or freely with their own thoughts, helping them build a consistent writing habit and feel emotionally better day by day. 
 
-**URL**: https://lovable.dev/projects/7f4ea064-73a2-4a55-bf04-a7f61a9ec74f
+---
 
-## How can I edit this code?
+## ✨ Features  
+- 📝 **Journaling** – Write and reflect on your daily thoughts, moods, and experiences.  
+- 🌬️ **Breathing Exercise** – A calming guided exercise to reduce stress and improve focus.  
+- 🤖 **AI Chat Assistant** – Personalized recommendations for:  
+  - 🎶 Music & songs to uplift your mood  
+  - 🍲 Food suggestions for comfort and wellness  
+  - 📍 Places to relax and unwind  
+- 🎨 **Comfortable UI/UX** – Clean, user-friendly interface designed to create a calming environment.  
+- 🐳 **Dockerized Application** – The web app is fully containerized, making it deployable on any cloud platform and compatible across all systems.  
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 Getting Started  
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7f4ea064-73a2-4a55-bf04-a7f61a9ec74f) and start prompting.
+Follow these steps to run the project locally using Docker.  
 
-Changes made via Lovable will be committed automatically to this repo.
+### 1. Clone the repository  
 
-**Use your preferred IDE**
+git clone https://github.com//Sangini-spec/heart-hues-diary.git
+cd heart-hues-diary
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Build the Docker image
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+docker build -t hearthuesdiary .
 
-Follow these steps:
+### Run the Docker container
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+docker run -p 8080:8080 hearthuesdiary
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
 ## What technologies are used for this project?
 
@@ -60,14 +44,16 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/7f4ea064-73a2-4a55-bf04-a7f61a9ec74f) and click on Share -> Publish.
+Since the app is dockerized, it can be deployed seamlessly on:
 
-## Can I connect a custom domain to my Lovable project?
+- AWS (Elastic Beanstalk, ECS, EKS)
+- Google Cloud Run
+- Microsoft Azure
+- IBM Cloud
+- Any Docker-compatible platform
 
-Yes, you can!
+## Live link of the project
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Simply open [heart-hues-diary](https://heart-hues-diary.vercel.app/) .
