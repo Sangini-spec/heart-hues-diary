@@ -23,13 +23,14 @@ Follow these steps to run the project locally using Docker.
 ### 1. Clone the repository  
 
 git clone https://github.com//Sangini-spec/heart-hues-diary.git
+
 cd heart-hues-diary
 
-### Build the Docker image
+### 2. Build the Docker image
 
 docker build -t hearthuesdiary .
 
-### Run the Docker container
+### 3. Run the Docker container
 
 docker run -p 8080:8080 hearthuesdiary
 
